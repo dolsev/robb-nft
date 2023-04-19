@@ -1,0 +1,183 @@
+.navbar {
+    position:fixed;
+    top:0;
+    display: flex;
+    justify-content: space-between;
+    width: 100vw;
+    align-items: center;
+    padding: 20px 24px;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.05);
+    z-index: 10;
+    font-weight: 700;
+    font-size: 16px;
+}
+.mainIcon{
+    display: flex;
+    flex-direction: column;
+}
+.top{
+    display: flex;
+}
+.bot{
+    display: flex;
+}
+.red{
+    background: #F78181;
+    transform: rotate(-90deg);
+    width: 16px;
+    height: 16px;
+    border-top-right-radius: 50px;
+    border-bottom-right-radius: 50px;
+
+}
+.purple{
+    background: #C2BEEB;
+    width: 16px;
+    height: 16px;
+    border-top-right-radius: 50px;
+    border-bottom-right-radius: 50px;
+}
+.blue{
+    background: #B4DDFF;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+}
+.green{
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 16px 0 0 16px;
+    border-color: transparent transparent transparent #B5D3C1;
+}
+.left{
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.siteName {
+    font-size: 24px;
+    margin-left: 24px;
+}
+
+.buttons {
+    display: flex;
+    gap: 16px;
+}
+
+
+.button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 16px;
+    background: #F0F1F2;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 16px;
+
+}
+
+.button:hover {
+    background: #E9F9E4;
+    color: #52BC20;
+}
+
+.right {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap:8px;
+}
+
+.searchIcon {
+    position: absolute;
+    left: 8px;
+    top: 50%;
+    background-color: transparent;
+    border: none;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+.searchInput {
+    height: 40px;
+    width: 304px;
+    padding: 8px 40px 8px 32px;
+    border-radius: 10px;
+    font-size: 16px;
+    border: 1px grey solid;
+}
+.searchInput::placeholder {
+    color: #7B8794;
+}
+.searchButton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 8px;
+    background: #ffffff;
+    border-radius: 8px;
+    border: 1.5px solid rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+}
+.icon {
+    font-size: 16px;
+}
+
+.moonButton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    height: 40px;
+    width: 40px;
+    background: #F0F1F2;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+
+}
+.moonButton:hover {
+    background: #E9F9E4;
+}
+.walletCircle{
+    height: 24px;
+    width: 24px;
+    border-radius: 50%;
+    background: linear-gradient(154.44deg, #64CAEB 10.23%, #1347FF 89.89%);
+}
+.walletButton{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 8px;
+    background: #F0F1F2;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    height: 40px;
+
+}
+.walletButton:hover {
+    background: #E9F9E4;
+}
+@media screen and (max-width: 1440px){
+
+    .buttons {
+        display:none;
+    }
+
+}
+.glass{
+    filter: grayscale(100%) opacity(0.5);
+
+}

@@ -1,0 +1,68 @@
+.table{
+    display: flex;
+    z-index: 2;
+    padding: 32px 24px;
+    background: #FFFFFF;
+    width: 100vw;
+    align-items: center;
+}
+
+.titleBox {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.title {
+    font-weight: 800;
+    font-size: 24px;
+}
+
+.switcher {
+    display: flex;
+    align-items: center;
+}
+
+.switcherBtnLeft {
+    height: 40px;
+    width: 48px;
+    padding: 11px 15px;
+    border: 1.5px #EFF0F0 solid;
+    background-color: transparent;
+    cursor: pointer;
+    border-radius: 8px 0px 0px 8px;
+
+}
+.switcherBtnRight {
+    height: 40px;
+    width: 48px;
+    padding: 11px 15px;
+    border: 1.5px #EFF0F0 solid;
+    background-color: transparent;
+    cursor: pointer;
+    border-radius: 0px 8px 8px 0px;
+
+}
+.switcherBtn:focus {
+    outline: none;
+}
+
+.icon {
+    width: 100%;
+    height: auto;
+}
+
+.active {
+    background-color: #F0F1F2;
+}
+
+.switcherBtnLeft .icon,
+.switcherBtnRight .icon {
+    filter: grayscale(100%) opacity(0.5);
+}
+
+.switcherBtnLeft.active .icon,
+.switcherBtnRight.active .icon {
+    filter: grayscale(0%) opacity(1);
+}
