@@ -12,7 +12,7 @@ function Table() {
         setIsTable(!isTable);
     };
     const [sortOrder, setSortOrder] = useState('asc');
-    const handleSort = (field) => {
+    const handleSort = (field:'string') => {
         const sortedData = [...apiData].sort((a, b) => {
             const aValue = a[field] || a.project[field];
             const bValue = b[field] || b.project[field];
