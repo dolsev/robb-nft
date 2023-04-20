@@ -1,13 +1,27 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import type { NextApiRequest, NextApiResponse } from 'next'
+import type { NextApiRequest, NextApiResponse } from 'next';
 
-type Data = {
-  name: string
-}
-
-export default function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<Data>
+type CollectionData = {
+  id?: number;
+  name?: string;
+  floorPrice?: number;
+  buyNowPrice?: number;
+  volume?: string;
+  sales?: number;
+  interest?: string;
+};
+export default async function handler(
+    req: NextApiRequest,
+    res: NextApiResponse<CollectionData[]>
 ) {
-  res.status(200).json({ name: 'John Doe' })
+  try {
+    const response = await fetch('https://robox-test.herokuapp.com/api/collection', {
+      headers: {
+        apikey: 'test123'
+      }
+    });
+    const collectionData = await response.json();
+    res.status(200).json(collectionData);
+  } catch (error) {
+    console.error(error);
+  }
 }

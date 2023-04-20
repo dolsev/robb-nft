@@ -25,8 +25,10 @@
     color: #4AE613;
 }
 .stats{
-    gap:16px;
     display: flex;
+    width: 100%;
+    justify-content: space-around;
+
 }
 .stat{
     display: flex;
@@ -88,7 +90,7 @@
     border-color: transparent transparent transparent #B5D3C1;
 }
 
-@media screen and (min-width: 1440px){
+@media screen and (min-width: 1441px){
     .red,.purple,.blue,.green{
         display: none;
     }
