@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import styles from '../styles/Table.module.css';
+import styles from '../styles/components/Table.module.css';
 import GridSystem from "@/components/svgs/GridSystem";
 import TableRowIcon from "@/components/svgs/TableRowIcon";
 import SortIcon from "@/components/svgs/SortIcon";
@@ -12,7 +12,7 @@ function Table() {
         setIsTable(!isTable);
     };
     const [sortOrder, setSortOrder] = useState('asc');
-    type DataField = 'collection_id' | 'floor_price' | 'project'|'supply';;
+    type DataField = 'collection_id' | 'floor_price' | 'project' | 'supply';
 
     const handleSort = (field: DataField) => {
         const sortedData = [...apiData].sort((a, b) => {
@@ -49,7 +49,7 @@ function Table() {
 
 
     return (
-        <div className={styles.table}>
+        <div className={styles.dataSection}>
             <div className={styles.titleBox}>
                 <h1 className={styles.title}>Trending Collections</h1>
                 <div className={styles.switcher}>
@@ -65,36 +65,40 @@ function Table() {
                     >
                         <GridSystem className={styles.icon} />
                     </button>
-                </div>
-            </div>
 
-            <div className={styles.tableContainer}>
-                <div className={styles.descriptionRow}>
-                    <div className={styles.descriptionItemMain}>Collections</div>
-                    <div onClick={() => handleSort('floor_price')} className={styles.descriptionItem}>Floor price <SortIcon/></div>
-                    <div  onClick={() => handleSort('supply')} className={styles.descriptionItem}>Buy Now Price<SortIcon/></div>
-                    <div  className={styles.descriptionItem}>24h Vol%<SortIcon/></div>
-                    <div className={styles.descriptionItem}>24h Sales<SortIcon/></div>
-                    <div className={styles.descriptionItem}>Interest<SortIcon/></div>
-                </div>
-                <div className={styles.tableBordered}>
-                {apiData.map(item => (
-                       <>
-                        <div key={item.collection_id} className={styles.tableRow}>
-                            <div className={styles.tableItemMain}><img className={styles.avatar} src={item?.project?.img_url} alt={''}/><p>{item.project.display_name}</p></div>
-                            <div className={styles.tableItem}>{(item.floor_price*1000).toFixed(0)} SOL</div>
-                            <div className={styles.tableItem}>{item?.project?.supply} SOL</div>
-                            <div className={styles.tableItem}><span className={styles.green}>+{100}%</span></div>
-                            <div className={styles.tableItem}>{(10000).toLocaleString()}</div>
-                            <div className={styles.tableItem}>{10}%</div>
-                            <button className={styles.buy}>Instant buy</button>
-                        </div>
-                           <hr className={styles.tableLine}/>
-                       </>
-                ))}
                 </div>
             </div>
+            <table className={styles.tableMini}>
+                <thead>
+                <tr>
+                    <th>Collection</th>
+                    <th className={styles.pointer} onClick={() => handleSort('floor_price')}>Floor price <SortIcon/></th>
+                    <th className={styles.pointer} onClick={() => handleSort('supply')}>Buy Now Price <SortIcon/></th>
+                    <th>24h Vol% <SortIcon/></th>
+                    <th>24h Sales <SortIcon/></th>
+                    <th>Interest (14 days) <SortIcon/></th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tfoot>
+                </tfoot>
+                <tbody>
+                    {apiData.map(item=>(
+                        <tr>
+                        <td ><div className={styles.collection}><img className={styles.avatar} src={item?.project?.img_url} alt={''}/><p>{item.project.display_name}</p></div></td>
+                        <td data-title='Floor price'>{(item.floor_price*1000).toFixed(0)} SOL</td>
+                        <td data-title='Buy Now Price'>{item?.project?.supply} SOL</td>
+                        <td data-title='24h Vol%'><span className={styles.green}>+{100}%</span></td>
+                        <td data-title='24h Sales'>{(10000).toLocaleString()}</td>
+                        <td data-title='Interest (14 days)'>{10}%</td>
+                        <td><a className={styles.buy}>Instant Buy</a></td>
+                        </tr>
+                        ))
+                    }
+                </tbody>
+            </table>
         </div>
+
     );
 }
 

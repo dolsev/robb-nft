@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import styles from '@/styles/Home.module.css'
+import styles from '@/styles/components/Home.module.css'
 import Navbar from "@/components/Navbar";
 import Banner from "@/components/Banner";
 import Table from "@/components/Table";
