@@ -54,9 +54,7 @@
     height: auto;
 }
 
-.active {
-    background-color: #F0F1F2;
-}
+
 
 .switcherBtnLeft .icon,
 .switcherBtnRight .icon {
@@ -101,18 +99,17 @@
     justify-content: center;
     align-items: center;
     gap: 11px;
-    padding-left:24px;
+    padding-left: 24px;
 }
 
 .tableMini td:last-child {
     min-width: 150px;
-    gap:0;
+    gap: 0;
 }
 
 .avatar {
     width: 48px;
     height: 48px;
-
 }
 
 .green {
@@ -125,7 +122,6 @@
     font-size: 13px;
     display: block;
     color: #8A8A8E;
-
 }
 
 .tableMini th {
@@ -170,14 +166,14 @@
 }
 
 @media (min-width: 1085px) {
+
     .tableMini {
         display: table;
     }
-    .collection{
+    .collection {
         display: flex;
-        gap:11px;
+        gap: 11px;
         align-items: center;
-
     }
     .tableMini td {
         text-align: left;
@@ -189,52 +185,41 @@
         display: inline-block;
         text-align: right;
         width: 140px;
-
     }
     .tableMini thead th {
         padding-bottom: 8px;
     }
-
     .tableMini tr {
         display: table-row;
-
     }
-
+    .tableMini tr:nth-child(even) {
+        background-color: rgba(246, 252, 244, 0.68);
+    }
     .tableMini td,
     .tableMini th {
         display: table-cell;
-
     }
-    .tableMini td:first-child{
-        border-left:1px solid #EFF0F0;
+    .tableMini td:first-child {
+        border-left: 1px solid #EFF0F0;
     }
-    .tableMini td:last-child{
-        border-right:1px solid #EFF0F0;
+    .tableMini td:last-child {
+        border-right: 1px solid #EFF0F0;
     }
-
     .tableMini tbody {
         display: table-row-group;
-
     }
-
     .tableMini thead {
         display: table-header-group;
     }
-
     .tableMini tfoot {
         display: table-footer-group;
     }
-
-
     .tableMini td:before {
         display: none;
     }
-
-
     .tableMini tfoot th {
         display: table-cell;
     }
-
     .select {
         padding: 10px;
     }
@@ -242,7 +227,6 @@
         border-collapse: separate;
         border-spacing: 0;
     }
-
     .tableMini tr:first-child td:first-child {
         border-top-left-radius: 16px;
     }
@@ -256,3 +240,40 @@
         border-bottom-right-radius: 16px;
     }
 }
+
+.pagination {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-top: 16px;
+    justify-content: flex-start;
+    gap:5px;
+}
+
+.pageNumber {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 32px;
+    height: 32px;
+    border: 1px solid #EFF0F0;
+    background-color: transparent;
+    color: #8A8A8E;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.pageNumber:hover {
+    background-color: #F0F1F2;
+}
+
+.pageNumber:focus {
+    outline: none;
+}
+
+.active {
+    background-color: #F0F1F2;
+}
+

@@ -181,3 +181,8 @@
     filter: grayscale(100%) opacity(0.5);
 
 }
+
+.button.active {
+    background-color: #4cff00;
+    color: #FFFFFF;
+}

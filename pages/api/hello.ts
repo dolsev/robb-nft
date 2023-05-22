@@ -1,26 +1,36 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-type CollectionData = {
-  id?: number;
-  name?: string;
-  floorPrice?: number;
-  buyNowPrice?: number;
-  volume?: string;
-  sales?: number;
-  interest?: string;
+type TickerData = {
+  symbol: string;
+  priceChange: string;
+  priceChangePercent: string;
+  weightedAvgPrice: string;
+  prevClosePrice: string;
+  lastPrice: string;
+  lastQty: string;
+  bidPrice: string;
+  askPrice: string;
+  openPrice: string;
+  highPrice: string;
+  lowPrice: string;
+  volume: string;
+  quoteVolume: string;
+  openTime: number;
+  closeTime: number;
+  firstId: number;
+  lastId: number;
+  count: number;
 };
+
 export default async function handler(
     req: NextApiRequest,
-    res: NextApiResponse<CollectionData[]>
+    res: NextApiResponse<TickerData[]>
 ) {
   try {
-    const response = await fetch('https://robox-test.herokuapp.com/api/collection', {
-      headers: {
-        apikey: 'test123'
-      }
-    });
-    const collectionData = await response.json();
-    res.status(200).json(collectionData);
+    const response = await fetch('https://api.binance.com/api/v3/ticker/24hr');
+    const tickerData: TickerData[] = await response.json();
+    const first20Items = tickerData.slice(0, 20);
+    res.status(200).json(first20Items);
   } catch (error) {
     console.error(error);
   }

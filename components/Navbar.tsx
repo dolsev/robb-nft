@@ -41,7 +41,7 @@ const Navbar = () => {
                     </Link>
                     <div>
                         <h1 className={styles.siteName}>
-                            {screenWidth < 1440 ? 'Robox' : 'Robox.Fi'}
+                            {screenWidth < 1440 ? 'Crypto' : 'Crypto.Fi'}
                         </h1>
                     </div>
                 </div>

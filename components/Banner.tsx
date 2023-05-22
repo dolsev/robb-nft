@@ -16,7 +16,7 @@ const bannerData: BannerData[] = [
 
 const Banner = () => (
     <div className={styles.banner}>
-        <h1 className={styles.title}>Buy your favorite NFTs with <span className={styles.highlight}>leverage</span></h1>
+        <h1 className={styles.title}>Buy your favorite Crypto with <span className={styles.highlight}>leverage</span></h1>
         <div className={styles.stats}>
             {bannerData.map((data, i) => (
                 <div key={i+'stat'} className={styles.stat}>

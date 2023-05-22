@@ -1,23 +1,49 @@
 import React, { useState, useEffect } from 'react';
 import styles from '../styles/components/Table.module.css';
-import GridSystem from "@/components/svgs/GridSystem";
-import TableRowIcon from "@/components/svgs/TableRowIcon";
-import SortIcon from "@/components/svgs/SortIcon";
+import GridSystem from '@/components/svgs/GridSystem';
+import TableRowIcon from '@/components/svgs/TableRowIcon';
+import SortIcon from '@/components/svgs/SortIcon';
+
+type TickerData = {
+    symbol: string;
+    priceChange: string;
+    priceChangePercent: string;
+    weightedAvgPrice: string;
+    prevClosePrice: string;
+    lastPrice: string;
+    lastQty: string;
+    bidPrice: string;
+    askPrice: string;
+    openPrice: string;
+    highPrice: string;
+    lowPrice: string;
+    volume: string;
+    quoteVolume: string;
+    openTime: number;
+    closeTime: number;
+    firstId: number;
+    lastId: number;
+    count: number;
+}[];
+
+const itemsPerPage = 20;
 
 function Table() {
     const [isTable, setIsTable] = useState(true);
-    const [apiData, setApiData] = useState<ApiDataType>([]);
+    const [apiData, setApiData] = useState<TickerData>([]);
+    const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
+    const [currentPage, setCurrentPage] = useState(1);
 
     const handleSwitcherClick = () => {
         setIsTable(!isTable);
     };
-    const [sortOrder, setSortOrder] = useState('asc');
-    type DataField = 'collection_id' | 'floor_price' | 'project' | 'supply';
+
+    type DataField = keyof TickerData[0];
 
     const handleSort = (field: DataField) => {
         const sortedData = [...apiData].sort((a, b) => {
-            const aValue = (a as any)[field] || (a as any).project[field];
-            const bValue = (b as any)[field] || (b as any).project[field];
+            const aValue = (a as any)[field];
+            const bValue = (b as any)[field];
             if (sortOrder === 'asc') {
                 return aValue - bValue;
             } else {
@@ -28,18 +54,12 @@ function Table() {
         setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
     };
 
-
-
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch('https://robox-test.herokuapp.com/api/collection', {
-                    headers: {
-                        apikey: 'test123',
-                    }
-                });
+                const response = await fetch('https://api.binance.com/api/v3/ticker/24hr');
                 const data = await response.json();
-                setApiData(data.collection);
+                setApiData(data);
             } catch (error) {
                 console.error(error);
             }
@@ -47,6 +67,14 @@ function Table() {
         fetchData();
     }, []);
 
+    const totalPages = Math.ceil(apiData.length / itemsPerPage);
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const currentItems = apiData.slice(startIndex, endIndex);
+
+    const handlePageChange = (pageNumber: number) => {
+        setCurrentPage(pageNumber);
+    };
 
     return (
         <div className={styles.dataSection}>
@@ -65,40 +93,63 @@ function Table() {
                     >
                         <GridSystem className={styles.icon} />
                     </button>
-
                 </div>
             </div>
-            <table className={styles.tableMini}>
-                <thead>
-                <tr>
-                    <th>Collection</th>
-                    <th className={styles.pointer} onClick={() => handleSort('floor_price')}>Floor price <SortIcon/></th>
-                    <th className={styles.pointer} onClick={() => handleSort('supply')}>Buy Now Price <SortIcon/></th>
-                    <th>24h Vol% <SortIcon/></th>
-                    <th>24h Sales <SortIcon/></th>
-                    <th>Interest (14 days) <SortIcon/></th>
-                    <th></th>
-                </tr>
-                </thead>
-                <tfoot>
-                </tfoot>
-                <tbody>
-                    {apiData.map(item=>(
-                        <tr>
-                        <td ><div className={styles.collection}><img className={styles.avatar} src={item?.project?.img_url} alt={''}/><p>{item.project.display_name}</p></div></td>
-                        <td data-title='Floor price'>{(item.floor_price*1000).toFixed(0)} SOL</td>
-                        <td data-title='Buy Now Price'>{item?.project?.supply} SOL</td>
-                        <td data-title='24h Vol%'><span className={styles.green}>+{100}%</span></td>
-                        <td data-title='24h Sales'>{(10000).toLocaleString()}</td>
-                        <td data-title='Interest (14 days)'>{10}%</td>
-                        <td><a className={styles.buy}>Instant Buy</a></td>
+            {isTable ? (
+                <table className={styles.tableMini}>
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th className={styles.pointer} onClick={() => handleSort('priceChange')}>
+                            Price Change <SortIcon />
+                        </th>
+                        <th className={styles.pointer} onClick={() => handleSort('priceChangePercent')}>
+                            Price Change % <SortIcon />
+                        </th>
+                        <th className={styles.pointer} onClick={() => handleSort('volume')}>
+                            Volume <SortIcon />
+                        </th>
+                        <th className={styles.pointer} onClick={() => handleSort('quoteVolume')}>
+                            Quote Volume <SortIcon />
+                        </th>
+                        <th className={styles.pointer} onClick={() => handleSort('highPrice')}>
+                            High Price <SortIcon />
+                        </th>
+                        <th className={styles.pointer} onClick={() => handleSort('lowPrice')}>
+                            Low Price <SortIcon />
+                        </th>
+                    </tr>
+                    </thead>
+                    <tfoot></tfoot>
+                    <tbody>
+                    {currentItems.map((item) => (
+                        <tr key={item.symbol}>
+                            <td data-title="Name">{item.symbol}</td>
+                            <td data-title="Price Change">{item.priceChange}</td>
+                            <td data-title="Price Change %">{item.priceChangePercent}</td>
+                            <td data-title="Volume">{item.volume}</td>
+                            <td data-title="Quote Volume">{item.quoteVolume}</td>
+                            <td data-title="High Price">{item.highPrice}</td>
+                            <td data-title="Low Price">{item.lowPrice}</td>
                         </tr>
-                        ))
-                    }
-                </tbody>
-            </table>
+                    ))}
+                    </tbody>
+                </table>
+            ) : (
+                <div>Grid System</div>
+            )}
+            <div className={styles.pagination}>
+                {Array.from({ length: totalPages }).map((_, index) => (
+                    <button
+                        key={index}
+                        className={`${styles.pageNumber} ${currentPage === index + 1 ? styles.active : ''}`}
+                        onClick={() => handlePageChange(index + 1)}
+                    >
+                        {index + 1}
+                    </button>
+                ))}
+            </div>
         </div>
-
     );
 }
 
